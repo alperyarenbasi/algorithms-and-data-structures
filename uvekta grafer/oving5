@@ -1,0 +1,92 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class oving5 {
+}
+
+class Kant{
+    Kant neste;
+    Node til;
+    public Kant(Node n, Kant nst){
+        til = n;
+        neste = nst;
+    }
+}
+
+class Node{
+    Kant kant1;
+    Object d; //andre nøkkeldata
+}
+
+class Graf{
+    int N, K;
+    Node []node;
+
+    public void ny_ugraf(BufferedReader br) throws IOException {
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        node = new Node[N];
+        for (int i = 0; i < N; ++i) node[i] = new Node();
+        K = Integer.parseInt(st.nextToken());
+        for (int i=0; i < K; ++i) {
+            st = new StringTokenizer(br.readLine());
+            int fra = Integer.parseInt(st.nextToken());
+            int til = Integer.parseInt(st.nextToken()) ;
+            Kant k = new Kant(node[til], node[fra].kant1);
+            node[fra].kant1 = k;
+        }
+    }
+
+    public void dfs_init(){
+        for( int i = N; i --> 0;){
+            node[i].d = new Dfs_forgj();
+        }
+        Dfs_forgj.null_tid();
+    }
+
+    public void dfs_sok(Node n){
+
+        Dfs_forgj nd = (Dfs_forgj)n.d;
+        nd.funnet_tid = Dfs_forgj.les_tid();
+        for( Kant k = n.kant1; k != null; k = k.neste){
+            Dfs_forgj md = (Dfs_forgj)k.til.d;
+            if(md.funnet_tid == 0) {
+                md.forgj = n;
+                md.dist = nd.dist +1;
+                dfs_sok(k.til);
+            }
+        }
+        nd.ferdig_tid = Dfs_forgj.les_tid();
+    }
+
+    public void dfs(Node s){
+        dfs_init();
+        ((Dfs_forgj)s.d).dist = 0;
+        dfs_sok(s);
+    }
+}
+
+
+
+class Forgj {
+    int dist;
+    Node forgj;
+    static int uendelig = 1000000000;
+    public int finn_dist(){return dist;}
+    public Node finn_forgj(){return forgj;}
+    public Forgj(){
+        dist = uendelig;
+    }
+}
+
+class Dfs_forgj extends Forgj{
+    int funnet_tid, ferdig_tid;
+    static int tid;
+    static void null_tid(){ tid = 0;}
+    static int les_tid() {return ++tid;}
+
+}
+
+
+
