@@ -1,1 +1,1 @@
-![PDF Page 1](algorithms-and-data-structures/Hashmap/page1.png)
+[View the PDF](algorithms-and-data-structures/Hashmap/Øving4.pdf)
