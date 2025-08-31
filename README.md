@@ -17,7 +17,7 @@ Repoet er organisert i følgende mapper:
   - Quick Sort
 
 - **Komprimering**  
-  Øving i Komprimering
+  Komprimerings algoritme (og dekomprimering)
 
 - **uvekta grafer**  
   Implementasjoner og algoritmer for arbeid med uvektede grafer
